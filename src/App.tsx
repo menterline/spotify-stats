@@ -1,10 +1,11 @@
 import "./App.css";
+import LandingPage from "./Components/LandingPage";
 
 function App() {
   return (
-    <>
-      <h1>Matt Enterline</h1>
-    </>
+    <div className="App">
+      <LandingPage />
+    </div>
   );
 }
 
