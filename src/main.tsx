@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  //add back stict mode when adding react-query
+  //add back strict mode when adding react-query
   // <React.StrictMode>
   <App />
   // </React.StrictMode>

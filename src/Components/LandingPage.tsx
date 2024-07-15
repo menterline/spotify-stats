@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { UserProfile } from "../types/UserProfile";
 
 export default function LandingPage() {
+  //TODO move this logic up to App, or refactor between App, LandingPage, and a new component for when the user is logged in
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const clientId = "13f6cc16e88b452db78769d2ca4487b3";
@@ -23,23 +24,18 @@ export default function LandingPage() {
           track you listened to on repeat?
         </h3>
       </section>
-      {!code && (
-        <div className="flex flex-col items-center gap-4">
-          <Button
-            className="rounded-full self-center bg-spotifyGreen text-spotifyBlack data-[hover]:bg-spotifyBlack data-[hover]:text-spotifyGreen transition ease-in-out duration-500 px-4 py-2"
-            onClick={() => Login(code ?? "", setUserProfile)}
-          >
-            Login to Spotify
-          </Button>
-          <p className="text-spotifyText max-w-[512px]">
-            Please login to spotify so in order to fetch your listening data.
-            Nothing is saved or persisted in any way
-          </p>
-        </div>
-      )}
-      {userProfile && (
-        <div className="text-spotifyGreen">{`Welcome, ${userProfile.display_name}`}</div>
-      )}
+      <div className="flex flex-col items-center gap-4">
+        <Button
+          className="rounded-full self-center bg-spotifyGreen text-spotifyBlack data-[hover]:bg-spotifyBlack data-[hover]:text-spotifyGreen transition ease-in-out duration-500 px-4 py-2"
+          onClick={() => Login(code ?? "", setUserProfile)}
+        >
+          Login to Spotify
+        </Button>
+        <p className="text-spotifyText max-w-[512px]">
+          Please login to spotify so in order to fetch your listening data.
+          Nothing is saved or persisted in any way
+        </p>
+      </div>
     </div>
   );
 }
