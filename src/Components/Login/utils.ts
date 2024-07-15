@@ -80,6 +80,7 @@ export async function getAccessToken(
   return access_token;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function fetchProfile(token: string): Promise<any> {
   const result = await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
@@ -87,8 +88,4 @@ export async function fetchProfile(token: string): Promise<any> {
   });
 
   return await result.json();
-}
-
-function populateUI(profile: any) {
-  // TODO: Update UI with profile data
 }
