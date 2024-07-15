@@ -576,6 +576,18 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.51.1.tgz"
+  integrity sha512-fJBMQMpo8/KSsWW5ratJR5+IFr7YNJ3K2kfP9l5XObYHsgfVy1w3FJUWU4FT2fj7+JMaEg33zOcNDBo0LMwHnw==
+
+"@tanstack/react-query@^5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.51.1.tgz"
+  integrity sha512-s47HKFnQ4HOJAHoIiXcpna/roMMPZJPy6fJ6p4ZNVn8+/onlLBEDd1+xc8OnDuwgvecqkZD7Z2mnSRbcWefrKw==
+  dependencies:
+    "@tanstack/query-core" "5.51.1"
+
 "@tanstack/react-virtual@^3.8.1":
   version "3.8.3"
   resolved "https://registry.npmjs.org/@tanstack/react-virtual/-/react-virtual-3.8.3.tgz"
@@ -2093,7 +2105,7 @@ react-router@6.24.1:
   dependencies:
     "@remix-run/router" "1.17.1"
 
-"react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", react@^18, react@^18.3.1, "react@>= 16", react@>=16.8, react@>=16.8.0:
+"react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", react@^18, react@^18.0.0, react@^18.3.1, "react@>= 16", react@>=16.8, react@>=16.8.0:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
