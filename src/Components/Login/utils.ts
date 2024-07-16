@@ -34,7 +34,7 @@ async function redirectToAuthCodeFlow(clientId: string) {
   params.append("response_type", "code");
   params.append(
     "redirect_uri",
-    `http://${window.location.host}/spotify-stats/profile/`
+    `${window.location.origin}/spotify-stats/profile/`
   );
   params.append("scope", "user-read-private user-read-email user-top-read");
   params.append("code_challenge_method", "S256");
@@ -75,7 +75,7 @@ export async function getAccessToken(
   params.append("code", code);
   params.append(
     "redirect_uri",
-    `http://${window.location.host}/spotify-stats/profile/`
+    `${window.location.origin}/spotify-stats/profile/`
   );
   params.append("code_verifier", verifier!);
 
