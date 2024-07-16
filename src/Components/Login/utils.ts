@@ -1,9 +1,6 @@
 import { UserProfile } from "../../types/UserProfile";
 
-export const Login = async (
-  code: string,
-  setUserProfile: (profile: UserProfile) => void
-) => {
+export const Login = async (code: string): Promise<UserProfile | undefined> => {
   const clientId = "13f6cc16e88b452db78769d2ca4487b3";
   const params = new URLSearchParams(window.location.search);
   console.log(params);
@@ -11,12 +8,13 @@ export const Login = async (
   if (!code) {
     console.log("redirect");
     await redirectToAuthCodeFlow(clientId);
+    return;
   } else {
     console.log("auth");
     const accessToken = await getAccessToken(clientId, code);
     const profile = await fetchProfile(accessToken);
     console.log(profile);
-    setUserProfile(profile);
+    return profile;
   }
 };
 

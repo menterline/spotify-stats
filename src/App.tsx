@@ -9,12 +9,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
             <Route path="/spotify-stats" element={<LandingPage />} />
             <Route path="/spotify-stats/profile" element={<Profile />} />h
-          </QueryClientProvider>
-        </Routes>
+          </Routes>
+        </QueryClientProvider>
       </BrowserRouter>
     </div>
   );
