@@ -12,7 +12,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Routes>
             <Route path="/spotify-stats" element={<LandingPage />} />
-            <Route path="/spotify-stats/profile" element={<Profile />} />h
+            <Route path="/spotify-stats/profile" element={<Profile />} />
           </Routes>
         </QueryClientProvider>
       </BrowserRouter>
