@@ -4,7 +4,6 @@ import "./index.css";
 import React from "react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  //add back strict mode when adding react-query
   <React.StrictMode>
     <App />
   </React.StrictMode>
