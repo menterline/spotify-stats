@@ -663,6 +663,11 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
+"@types/spotify-api@^0.0.25":
+  version "0.0.25"
+  resolved "https://registry.npmjs.org/@types/spotify-api/-/spotify-api-0.0.25.tgz"
+  integrity sha512-okhoy0U9fPWtwqCfbDyW8VxamhqvXE0gXIVeMOh5HcvEFQvWW2X0VsvdiX/OyiGQpZbZiOJXIGrbnIPfK0AIpA==
+
 "@typescript-eslint/eslint-plugin@^7.13.1":
   version "7.15.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-7.15.0.tgz"

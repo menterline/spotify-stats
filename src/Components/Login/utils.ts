@@ -1,10 +1,16 @@
 import { UserProfile } from "../../types/UserProfile";
 
-export const Login = async (code: string): Promise<UserProfile | undefined> => {
-  const clientId = "13f6cc16e88b452db78769d2ca4487b3";
-  const params = new URLSearchParams(window.location.search);
-  console.log(params);
+const clientId = "438b741ca31040b398a336a28407feff";
 
+export const FetchProfile = async (
+  token?: string
+): Promise<UserProfile | undefined> => {
+  if (!token) return undefined;
+  const profile = await fetchProfile(token);
+  console.log("profile = ", profile);
+  return profile;
+};
+export const Login = async (code: string): Promise<string | undefined> => {
   if (!code) {
     console.log("redirect");
     await redirectToAuthCodeFlow(clientId);
@@ -12,9 +18,8 @@ export const Login = async (code: string): Promise<UserProfile | undefined> => {
   } else {
     console.log("auth");
     const accessToken = await getAccessToken(clientId, code);
-    const profile = await fetchProfile(accessToken);
-    console.log(profile);
-    return profile;
+    console.log("token", accessToken);
+    return accessToken;
   }
 };
 
@@ -27,8 +32,11 @@ async function redirectToAuthCodeFlow(clientId: string) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("response_type", "code");
-  params.append("redirect_uri", "http://localhost:5173/spotify-stats/profile/");
-  params.append("scope", "user-read-private user-read-email");
+  params.append(
+    "redirect_uri",
+    `http://${window.location.host}/spotify-stats/profile/`
+  );
+  params.append("scope", "user-read-private user-read-email user-top-read");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
@@ -65,7 +73,10 @@ export async function getAccessToken(
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
   params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/spotify-stats/profile/");
+  params.append(
+    "redirect_uri",
+    `http://${window.location.host}/spotify-stats/profile/`
+  );
   params.append("code_verifier", verifier!);
 
   const result = await fetch("https://accounts.spotify.com/api/token", {
