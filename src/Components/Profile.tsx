@@ -23,7 +23,7 @@ export function Profile() {
       <section>
         <div className="flex flex-col gap-4">
           <h1 className="text-spotifyGreen text-2xl underline">
-            20 top tracks for the last year-ish
+            20 top tracks for the last year-ish. Data provided by Spotify
           </h1>
           <div className="text-start">
             {topTracks?.items?.map(
