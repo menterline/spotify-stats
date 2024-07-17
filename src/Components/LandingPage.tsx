@@ -13,7 +13,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col gap-16">
-      <header className="text-4xl text-spotifyGreen">SPOTIFY - STATS</header>
+      <header className="text-4xl text-spotifyGreen">AudioInsights</header>
       <section className="flex flex-col gap-4">
         <h3 className="text-xl text-spotifyGreen">
           What if you could see your spotify wrapped at any time?

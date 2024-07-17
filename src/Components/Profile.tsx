@@ -10,7 +10,7 @@ export function Profile() {
   const code = params.get("code");
   const token = useSpotifyLogin(code ?? "");
   const userProfile = useFetchProfile(token ?? "");
-  const topTracks = useTopTracks(token ?? "");
+  const topTracks = useTopTracks(token ?? "", "long_term");
   return (
     <div className="text-spotifyGreen flex flex-col gap-8">
       <section>
@@ -23,7 +23,7 @@ export function Profile() {
       <section>
         <div className="flex flex-col gap-4">
           <h1 className="text-spotifyGreen text-2xl underline">
-            20 top tracks for the last month
+            20 top tracks for the last year-ish
           </h1>
           <div className="text-start">
             {topTracks?.items?.map(

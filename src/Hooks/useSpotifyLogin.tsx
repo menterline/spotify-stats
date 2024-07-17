@@ -20,13 +20,17 @@ export const useFetchProfile = (token: string): UserProfile | undefined => {
   return data;
 };
 
-export const useTopTracks = (token: string) => {
+const useGetTopItems = (
+  type: "tracks" | "artists",
+  token: string,
+  timeRange: "short_term" | "medium_term" | "long_term"
+) => {
   const { data } = useQuery({
     queryKey: ["topTracks"],
     queryFn: () => {
       const params = new URLSearchParams();
-      params.append("type", "tracks");
-      params.append("time_range", "short_term");
+      params.append("type", type);
+      params.append("time_range", timeRange);
       params.append("limit", "20");
       const url = `https://api.spotify.com/v1/me/top/tracks?${params}`;
       return fetch(url, {
@@ -37,4 +41,18 @@ export const useTopTracks = (token: string) => {
     enabled: !!token,
   });
   return data;
+};
+
+export const useTopTracks = (
+  token: string,
+  timeRange: "short_term" | "medium_term" | "long_term"
+) => {
+  return useGetTopItems("tracks", token, timeRange);
+};
+
+export const useTopArtists = (
+  token: string,
+  timeRange: "short_term" | "medium_term" | "long_term"
+) => {
+  return useGetTopItems("artists", token, timeRange);
 };
