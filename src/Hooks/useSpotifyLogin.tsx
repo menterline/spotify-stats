@@ -8,7 +8,6 @@ export const useSpotifyLogin = (code: string): string | undefined => {
     queryFn: () => Login(code),
     enabled: !!code,
   });
-  console.log("login", data);
   return data;
 };
 

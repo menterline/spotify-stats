@@ -4,13 +4,13 @@ import {
   useTopTracks,
 } from "../Hooks/useSpotifyLogin";
 
+// Need to add a folter src/profile/index.html to load this script
 export function Profile() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const token = useSpotifyLogin(code ?? "");
   const userProfile = useFetchProfile(token ?? "");
   const topTracks = useTopTracks(token ?? "");
-  console.log(topTracks);
   return (
     <div className="text-spotifyGreen flex flex-col gap-8">
       <section>

@@ -7,18 +7,14 @@ export const FetchProfile = async (
 ): Promise<UserProfile | undefined> => {
   if (!token) return undefined;
   const profile = await fetchProfile(token);
-  console.log("profile = ", profile);
   return profile;
 };
 export const Login = async (code: string): Promise<string | undefined> => {
   if (!code) {
-    console.log("redirect");
     await redirectToAuthCodeFlow(clientId);
     return;
   } else {
-    console.log("auth");
     const accessToken = await getAccessToken(clientId, code);
-    console.log("token", accessToken);
     return accessToken;
   }
 };
@@ -32,10 +28,7 @@ async function redirectToAuthCodeFlow(clientId: string) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("response_type", "code");
-  params.append(
-    "redirect_uri",
-    `${window.location.origin}/spotify-stats/profile/`
-  );
+  params.append("redirect_uri", `${window.location.origin}/spotify-stats/`);
   params.append("scope", "user-read-private user-read-email user-top-read");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
@@ -73,10 +66,7 @@ export async function getAccessToken(
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
   params.append("code", code);
-  params.append(
-    "redirect_uri",
-    `${window.location.origin}/spotify-stats/profile/`
-  );
+  params.append("redirect_uri", `${window.location.origin}/spotify-stats/`);
   params.append("code_verifier", verifier!);
 
   const result = await fetch("https://accounts.spotify.com/api/token", {

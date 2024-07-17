@@ -1,11 +1,15 @@
 import { Button } from "@headlessui/react";
 import { Login } from "./Login/utils";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function LandingPage() {
-  //TODO move this logic up to App, or refactor between App, LandingPage, and a new component for when the user is logged in
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
-  // const clientId = "13f6cc16e88b452db78769d2ca4487b3";
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (code) navigate(`/spotify-stats/profile?code=${code}`);
+  }, [code, navigate]);
 
   return (
     <div className="flex flex-col gap-16">
