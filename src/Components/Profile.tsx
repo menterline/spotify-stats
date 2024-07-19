@@ -39,15 +39,24 @@ export function Profile() {
     <div className="flex flex-row gap-32">
       <section className="self-center flex flex-col gap-16">
         <div className="text-spotifyGreen">
-          <Knob value={analysisData?.avgDanceability} label="Danceability" />
+          <Knob
+            value={analysisData?.avgDanceability}
+            label="Danceability"
+            tooltip="Describes how suitable a track is for dancing.  Values range for 0 being not danceable at all to 100 being most danceable"
+          />
         </div>
         <div className="text-spotifyGreen">
-          <Knob value={analysisData?.avgEnergy} label="Energy" />
+          <Knob
+            value={analysisData?.avgEnergy}
+            label="Energy"
+            tooltip="Describes a perceptual measure of intensity and activity.  For example, death metal has high energy, while a Bach prelude scores low on the scale."
+          />
         </div>
         <div className="text-spotifyGreen">
           <Knob
             value={analysisData?.avgInstrumentalness}
             label="Instrumentalness"
+            tooltip="Confidence value between 0 and 100 that the track is fully instrumental.  Anything above 50 is meant to represent an instrumental track, but confidence is higher as it approaches 100."
           />
         </div>
       </section>
@@ -111,13 +120,25 @@ export function Profile() {
       </div>
       <section className="self-center flex flex-col gap-16">
         <div className="text-spotifyGreen">
-          <Knob value={analysisData?.avgLiveness} label="Liveness" />
+          <Knob
+            value={analysisData?.avgLiveness}
+            label="Liveness"
+            tooltip="Confidence that track is live - higher liveness means a hgih likelihood that this is a live track."
+          />
         </div>
         <div className="text-spotifyGreen">
-          <Knob value={analysisData?.avgLoudness} label="Loudness" />
+          <Knob
+            value={analysisData?.avgLoudness}
+            label="Loudness"
+            tooltip="Average loudness of the track in dB."
+          />
         </div>
         <div className="text-spotifyGreen">
-          <Knob value={analysisData?.avgSpeechiness} label="Speechiness" />
+          <Knob
+            value={analysisData?.avgSpeechiness}
+            label="Speechiness"
+            tooltip="Confidence in the track have spoken word.  In an exclusive spoken word track (like a podcast), the value is closer to 1, while going down to zero is an instrumental track."
+          />
         </div>
       </section>
     </div>
