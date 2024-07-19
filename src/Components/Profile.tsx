@@ -92,7 +92,7 @@ export function Profile() {
               <div className="flex flex-col md:flex-row gap-8 md:gap-16 justify-between">
                 <section>
                   <div className="text-2xl underline">Tracks</div>
-                  <div className="text-start text-spotifyText">
+                  <div className="text-center text-spotifyText">
                     {topTracks?.items?.map(
                       (track: SpotifyApi.TrackObjectSimplified, i: number) => (
                         <p key={i}>{track.name}</p>
@@ -102,7 +102,7 @@ export function Profile() {
                 </section>
                 <section>
                   <div className="text-2xl underline">Artists</div>
-                  <div className="text-start text-spotifyText">
+                  <div className="text-center text-spotifyText">
                     {topArtists?.items?.map(
                       (
                         artist: SpotifyApi.ArtistObjectSimplified,
