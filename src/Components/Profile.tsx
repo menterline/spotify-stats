@@ -90,7 +90,7 @@ export function Profile() {
                 {`20 top tracks and artists for the ${term?.label} - data provided by Spotify`}
               </h1>
               <div className="flex flex-col md:flex-row gap-8 md:gap-16 justify-between">
-                <section className="w-1/2">
+                <section className="lg:w-1/2">
                   <div className="text-2xl underline">Tracks</div>
                   <div className="text-center text-spotifyText">
                     {topTracks?.items?.map(
@@ -100,7 +100,7 @@ export function Profile() {
                     )}
                   </div>
                 </section>
-                <section className="w-1/2">
+                <section className="lg:w-1/2">
                   <div className="text-2xl underline">Artists</div>
                   <div className="text-center text-spotifyText">
                     {topArtists?.items?.map(
