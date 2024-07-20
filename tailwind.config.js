@@ -11,6 +11,9 @@ export default {
         background2: "#535353",
         spotifyText: "#b3b3b3",
       },
+      width: {
+        "1/2": "50%",
+      },
     },
   },
   plugins: [],
