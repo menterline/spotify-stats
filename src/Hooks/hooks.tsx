@@ -12,7 +12,7 @@ export const useSpotifyLogin = (code: string): string | undefined => {
   return data;
 };
 
-export const useFetchProfile = (token: string): UserProfile | undefined => {
+export const useFetchProfile = (token?: string): UserProfile | undefined => {
   const { data } = useQuery({
     queryKey: ["profile"],
     queryFn: () => FetchProfile(token),
@@ -24,8 +24,8 @@ export const useFetchProfile = (token: string): UserProfile | undefined => {
 
 const useGetTopItems = (
   type: "tracks" | "artists",
-  token: string,
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined
+  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
+  token?: string
 ) => {
   const { data } = useQuery({
     queryKey: [`${type}-${timeRange}`],
@@ -49,23 +49,23 @@ const useGetTopItems = (
 };
 
 export const useTopTracks = (
-  token: string,
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined
+  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
+  token?: string
 ) => {
-  return useGetTopItems("tracks", token, timeRange);
+  return useGetTopItems("tracks", timeRange, token);
 };
 
 export const useTopArtists = (
-  token: string,
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined
+  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
+  token?: string
 ) => {
-  return useGetTopItems("artists", token, timeRange);
+  return useGetTopItems("artists", timeRange, token);
 };
 
-export const useTracksAnalysis = (token: string, trackIds: string[]) => {
-  const trackIdString = trackIds.join(",");
+export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
+  const trackIdString = trackIds?.join(",");
   const params = new URLSearchParams();
-  params.append("ids", trackIdString);
+  params.append("ids", trackIdString ?? "");
   const { data } = useQuery({
     queryKey: ["tracks-analysis"],
     queryFn: () => {
@@ -75,7 +75,7 @@ export const useTracksAnalysis = (token: string, trackIds: string[]) => {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => res.json());
     },
-    enabled: !!token && trackIds?.length > 0,
+    enabled: !!token && (trackIds?.length ?? 0) > 0,
     staleTime: Infinity,
   });
   return data?.audio_features;

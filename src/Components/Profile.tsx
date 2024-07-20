@@ -23,14 +23,13 @@ export function Profile() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const token = useSpotifyLogin(code ?? "");
-  const userProfile = useFetchProfile(token ?? "");
-  const topTracks = useTopTracks(token ?? "", term?.name);
-  const topArtists = useTopArtists(token ?? "", term?.name);
+  const userProfile = useFetchProfile(token);
+  const topTracks = useTopTracks(term?.name, token);
+  const topArtists = useTopArtists(term?.name, token);
   const tracksAnalysis = useTracksAnalysis(
-    token ?? "",
-    topTracks?.items.map((track: SpotifyApi.TrackObjectFull) => track.id) ?? []
+    topTracks?.items.map((track: SpotifyApi.TrackObjectFull) => track.id),
+    token
   );
-  console.log(tracksAnalysis);
   const analysisData = useMemo(
     () => getAnalysisData(tracksAnalysis),
     [tracksAnalysis]
