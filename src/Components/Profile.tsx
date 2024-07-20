@@ -36,8 +36,8 @@ export function Profile() {
     [tracksAnalysis]
   );
   return (
-    <div className="flex flex-row gap-32">
-      <section className="self-center flex flex-col gap-16">
+    <div className="flex flex-row lg:gap-32">
+      <section className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
             value={analysisData?.avgDanceability}
@@ -118,7 +118,7 @@ export function Profile() {
           )}
         </section>
       </div>
-      <section className="self-center flex flex-col gap-16">
+      <section className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
             value={analysisData?.avgLiveness}
