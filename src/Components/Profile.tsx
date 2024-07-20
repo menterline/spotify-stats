@@ -123,7 +123,7 @@ export function Profile() {
           <Knob
             value={analysisData?.avgLiveness}
             label="Liveness"
-            tooltip="Confidence that track is live - higher liveness means a hgih likelihood that this is a live track."
+            tooltip="Confidence that track is live - higher liveness means a high likelihood that this is a live track."
           />
         </div>
         <div className="text-spotifyGreen">
