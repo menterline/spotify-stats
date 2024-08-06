@@ -23,17 +23,35 @@ export function Profile() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   const token = useSpotifyLogin(code ?? "");
-  const userProfile = useFetchProfile(token);
-  const topTracks = useTopTracks(term?.name, token);
-  const topArtists = useTopArtists(term?.name, token);
-  const tracksAnalysis = useTracksAnalysis(
-    topTracks?.items.map((track: SpotifyApi.TrackObjectFull) => track.id),
+  const [isLoadingProfile, userProfile, loadingProfileError] =
+    useFetchProfile(token);
+  const [isLoadingTopTracks, topTracks, topTracksError] = useTopTracks(
+    term?.name,
     token
   );
+  const [isLoadingArtists, topArtists, artistsError] = useTopArtists(
+    term?.name,
+    token
+  );
+  const [isLoadingTracksAnalysis, tracksAnalysis, tracksAnalysisError] =
+    useTracksAnalysis(
+      topTracks?.items.map((track: SpotifyApi.TrackObjectFull) => track.id),
+      token
+    );
   const analysisData = useMemo(
     () => getAnalysisData(tracksAnalysis),
     [tracksAnalysis]
   );
+
+  const isLoading =
+    isLoadingProfile ||
+    isLoadingTopTracks ||
+    isLoadingArtists ||
+    isLoadingTracksAnalysis;
+
+  if (isLoading) {
+    return <div className="text-xl text-spotifyText">Loading...</div>;
+  }
   return (
     <div className="flex flex-row lg:gap-32">
       <section className="self-center lg:flex flex-col gap-16 hidden">

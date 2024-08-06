@@ -12,14 +12,16 @@ export const useSpotifyLogin = (code: string): string | undefined => {
   return data;
 };
 
-export const useFetchProfile = (token?: string): UserProfile | undefined => {
-  const { data } = useQuery({
+export const useFetchProfile = (
+  token?: string
+): [boolean, UserProfile | undefined, unknown] => {
+  const { isLoading, data, error } = useQuery({
     queryKey: ["profile"],
     queryFn: () => FetchProfile(token),
     enabled: !!token,
     staleTime: Infinity,
   });
-  return data;
+  return [isLoading, data, error];
 };
 
 const useGetTopItems = (
@@ -27,7 +29,7 @@ const useGetTopItems = (
   timeRange: "short_term" | "medium_term" | "long_term" | undefined,
   token?: string
 ) => {
-  const { data } = useQuery({
+  const { isLoading, data, error } = useQuery({
     queryKey: [`${type}-${timeRange}`],
     queryFn: () => {
       const params = new URLSearchParams();
@@ -45,7 +47,7 @@ const useGetTopItems = (
     enabled: !!token && !!timeRange,
     staleTime: Infinity,
   });
-  return data;
+  return [isLoading, data, error];
 };
 
 export const useTopTracks = (
@@ -66,7 +68,7 @@ export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
   const trackIdString = trackIds?.join(",");
   const params = new URLSearchParams();
   params.append("ids", trackIdString ?? "");
-  const { data } = useQuery({
+  const { isLoading, data, error } = useQuery({
     queryKey: ["tracks-analysis"],
     queryFn: () => {
       const url = `https://api.spotify.com/v1/audio-features?${params}`;
@@ -78,5 +80,5 @@ export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
     enabled: !!token && (trackIds?.length ?? 0) > 0,
     staleTime: Infinity,
   });
-  return data?.audio_features;
+  return [isLoading, data?.audio_features, error];
 };
