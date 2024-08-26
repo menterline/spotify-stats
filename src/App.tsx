@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./Components/LandingPage";
-import { Profile } from "./Components/Profile";
+import LandingPage from "./pages/LandingPage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Routes>
             <Route path="/spotify-stats" element={<LandingPage />} />
-            <Route path="/spotify-stats/profile" element={<Profile />} />
+            <Route path="/spotify-stats/profile" element={<ProfilePage />} />
           </Routes>
         </QueryClientProvider>
       </BrowserRouter>

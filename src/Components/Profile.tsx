@@ -1,41 +1,36 @@
-import { Button } from "@headlessui/react";
+import { useMemo, useState } from "react";
+import { Knob } from "./Knob";
+import { TopItems } from "./TopItems";
 import {
   useFetchProfile,
-  useSpotifyLogin,
-  useTopArtists,
-  useTopTracks,
+  useGetTopItems,
   useTracksAnalysis,
 } from "../Hooks/hooks";
-import { useMemo, useState } from "react";
 import { getAnalysisData } from "./utils";
-import { Knob } from "./Knob";
+import { Track } from "../types/SpotifyEntities";
+import { TermSelector } from "./TermSelector";
 
-const buttonStyle =
-  "rounded-full self-center bg-spotifyGreen text-spotifyBlack data-[hover]:bg-spotifyBlack data-[hover]:text-spotifyGreen transition ease-in-out duration-500 px-4 py-2";
 type TermLength = "short_term" | "medium_term" | "long_term";
-type Term = { name: TermLength; label: string };
+export type Term = { name: TermLength; label: string };
 const shortTerm: Term = { name: "short_term", label: "last 4 weeks" };
 const mediumTerm: Term = { name: "medium_term", label: "last 6 months" };
 const longTerm: Term = { name: "long_term", label: "last year" };
-
-export function Profile() {
+type Props = {
+  token: string;
+};
+export function Profile(props: Props) {
+  const { token } = props;
   const [term, setTerm] = useState<Term>();
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-  const token = useSpotifyLogin(code ?? "");
+
   const [isLoadingProfile, userProfile, loadingProfileError] =
     useFetchProfile(token);
-  const [isLoadingTopTracks, topTracks, topTracksError] = useTopTracks(
-    term?.name,
-    token
-  );
-  const [isLoadingArtists, topArtists, artistsError] = useTopArtists(
+  const [isLoadingTopItems, topItems, topItemsError] = useGetTopItems(
     term?.name,
     token
   );
   const [isLoadingTracksAnalysis, tracksAnalysis, tracksAnalysisError] =
     useTracksAnalysis(
-      topTracks?.items.map((track: SpotifyApi.TrackObjectFull) => track.id),
+      topItems?.tracks?.map((track: Track) => track.id),
       token
     );
   const analysisData = useMemo(
@@ -44,10 +39,7 @@ export function Profile() {
   );
 
   const isLoading =
-    isLoadingProfile ||
-    isLoadingTopTracks ||
-    isLoadingArtists ||
-    isLoadingTracksAnalysis;
+    isLoadingProfile || isLoadingTopItems || isLoadingTracksAnalysis;
 
   if (isLoading) {
     return <div className="text-xl text-spotifyText">Loading...</div>;
@@ -84,54 +76,19 @@ export function Profile() {
           </h1>
         </section>
         <section className="self-center flex flex-col gap-4">
-          <h5>
-            Please select a 'term' option below for a time span from which to
-            fetch data
-          </h5>
-          <div className="self-center flex flex-row gap-8">
-            <Button className={buttonStyle} onClick={() => setTerm(shortTerm)}>
-              Short term
-            </Button>
-            <Button className={buttonStyle} onClick={() => setTerm(mediumTerm)}>
-              Medium term
-            </Button>
-            <Button className={buttonStyle} onClick={() => setTerm(longTerm)}>
-              Long term
-            </Button>
-          </div>
+          <TermSelector
+            setTerm={setTerm}
+            terms={[shortTerm, mediumTerm, longTerm]}
+            term={term?.name}
+          />
         </section>
         <section>
-          {topTracks && topArtists && (
-            <div className="flex flex-col gap-4">
-              <h1 className="text-spotifyGreen text-2xl ">
-                {`20 top tracks and artists for the ${term?.label} - data provided by Spotify`}
-              </h1>
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16 justify-between">
-                <section className="lg:w-1/2">
-                  <div className="text-2xl underline">Tracks</div>
-                  <div className="text-center text-spotifyText">
-                    {topTracks?.items?.map(
-                      (track: SpotifyApi.TrackObjectSimplified, i: number) => (
-                        <p key={i}>{track.name}</p>
-                      )
-                    )}
-                  </div>
-                </section>
-                <section className="lg:w-1/2">
-                  <div className="text-2xl underline">Artists</div>
-                  <div className="text-center text-spotifyText">
-                    {topArtists?.items?.map(
-                      (
-                        artist: SpotifyApi.ArtistObjectSimplified,
-                        i: number
-                      ) => (
-                        <p key={i}>{artist.name}</p>
-                      )
-                    )}
-                  </div>
-                </section>
-              </div>
-            </div>
+          {topItems?.tracks && topItems?.artists && (
+            <TopItems
+              tracks={topItems?.tracks}
+              artists={topItems?.artists}
+              currentTerm={term}
+            />
           )}
         </section>
       </div>
