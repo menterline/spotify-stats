@@ -15,17 +15,18 @@ export type Term = { name: TermLength; label: string };
 const shortTerm: Term = { name: "short_term", label: "last 4 weeks" };
 const mediumTerm: Term = { name: "medium_term", label: "last 6 months" };
 const longTerm: Term = { name: "long_term", label: "last year" };
+
 type Props = {
   token: string;
 };
 export function Profile(props: Props) {
   const { token } = props;
-  const [term, setTerm] = useState<Term>();
+  const [currentTerm, setCurrentTerm] = useState<Term>();
 
   const [isLoadingProfile, userProfile, loadingProfileError] =
     useFetchProfile(token);
   const [isLoadingTopItems, topItems, topItemsError] = useGetTopItems(
-    term?.name,
+    currentTerm?.name,
     token
   );
   const [isLoadingTracksAnalysis, tracksAnalysis, tracksAnalysisError] =
@@ -44,9 +45,24 @@ export function Profile(props: Props) {
   if (isLoading) {
     return <div className="text-xl text-spotifyText">Loading...</div>;
   }
+  if (loadingProfileError) {
+    return <h2 className="text-xl text-spotifyText">Error loading Profile</h2>;
+  }
+  if (topItemsError) {
+    return (
+      <h2 className="text-xl text-spotifyText">
+        Error loading top tracks and artists
+      </h2>
+    );
+  }
+  if (tracksAnalysisError) {
+    return (
+      <h2 className="text-xl text-spotifyText">Error loading track analysis</h2>
+    );
+  }
   return (
     <div className="flex flex-row lg:gap-32">
-      <section className="self-center lg:flex flex-col gap-16 hidden">
+      <aside className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
             value={analysisData?.avgDanceability}
@@ -68,8 +84,8 @@ export function Profile(props: Props) {
             tooltip="Confidence value between 0 and 100 that the track is fully instrumental.  Anything above 50 is meant to represent an instrumental track, but confidence is higher as it approaches 100."
           />
         </div>
-      </section>
-      <div className="text-spotifyGreen flex flex-col gap-8">
+      </aside>
+      <main className="text-spotifyGreen flex flex-col gap-8">
         <section>
           <h1 className="text-spotifyGreen text-4xl">
             Hello, {userProfile?.display_name}
@@ -77,22 +93,18 @@ export function Profile(props: Props) {
         </section>
         <section className="self-center flex flex-col gap-4">
           <TermSelector
-            setTerm={setTerm}
+            setTerm={setCurrentTerm}
             terms={[shortTerm, mediumTerm, longTerm]}
-            term={term?.name}
+            term={currentTerm}
           />
         </section>
         <section>
-          {topItems?.tracks && topItems?.artists && (
-            <TopItems
-              tracks={topItems?.tracks}
-              artists={topItems?.artists}
-              currentTerm={term}
-            />
+          {topItems && (
+            <TopItems tracks={topItems?.tracks} artists={topItems?.artists} />
           )}
         </section>
-      </div>
-      <section className="self-center lg:flex flex-col gap-16 hidden">
+      </main>
+      <aside className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
             value={analysisData?.avgLiveness}
@@ -114,7 +126,7 @@ export function Profile(props: Props) {
             tooltip="Confidence in the track have spoken word.  In an exclusive spoken word track (like a podcast), the value is closer to 1, while going down to zero is an instrumental track."
           />
         </div>
-      </section>
+      </aside>
     </div>
   );
 }

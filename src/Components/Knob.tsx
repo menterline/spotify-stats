@@ -9,7 +9,7 @@ export const Knob = (props: Props) => {
   const { value, label, tooltip } = props;
   return (
     <div>
-      {label && value ? (
+      {value ? (
         <div className="flex flex-col gap-2">
           <div className="text-3xl">{props.value}</div>
           <Tooltip.Provider>

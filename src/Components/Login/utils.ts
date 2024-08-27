@@ -80,8 +80,9 @@ export async function getAccessToken(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function fetchProfile(token: string): Promise<any> {
-  const result = await fetch("https://api.spotify.com/v1/me", {
+// TODO use my profile API
+export async function fetchProfile(token: string): Promise<UserProfile> {
+  const result = await fetch("http://localhost:8080/api/profile/", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });

@@ -95,12 +95,28 @@ describe("Profile Tests", () => {
       term: "test",
       genres: [],
     };
+    const mockTracksAnalysis = [
+      {
+        danceability: 0.74,
+        energy: 0.19,
+        instrumentalness: 0.01,
+        liveness: 100,
+        loudness: 0.01,
+        speechiness: 0.01,
+      },
+    ];
+
     mockFetchProfile.mockReturnValue([false, mockUserProfile, undefined]);
     mockGetTopItems.mockReturnValue([false, mockTopItems, undefined]);
-    mockGetTrackAnalysis.mockReturnValue([false, [], undefined]);
+    mockGetTrackAnalysis.mockReturnValue([
+      false,
+      mockTracksAnalysis,
+      undefined,
+    ]);
     const { getByText } = render(<Profile token={token} />);
     expect(getByText(/My Test User/)).toBeTruthy();
     expect(getByText(/Track 1/)).toBeTruthy();
     expect(getByText(/Artist 1/)).toBeTruthy();
+    expect(getByText(/74/)).toBeTruthy();
   });
 });

@@ -47,32 +47,6 @@ export const useGetTopItems = (
   return [isLoading, data, error];
 };
 
-// const useGetTopItems = (
-//   type: "tracks" | "artists",
-//   timeRange: "short_term" | "medium_term" | "long_term" | undefined,
-//   token?: string
-// ) => {
-//   const { isLoading, data, error } = useQuery({
-//     queryKey: [`${type}-${timeRange}`],
-//     queryFn: () => {
-//       const params = new URLSearchParams();
-//       params.append("type", type);
-//       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//       // @ts-ignore - this function is only called if timeRange is defined
-//       params.append("time_range", timeRange);
-//       params.append("limit", "20");
-//       const url = `https://api.spotify.com/v1/me/top/${type}?${params}`;
-//       return fetch(url, {
-//         method: "GET",
-//         headers: { Authorization: `Bearer ${token}` },
-//       }).then((res) => res.json());
-//     },
-//     enabled: !!token && !!timeRange,
-//     staleTime: Infinity,
-//   });
-//   return [isLoading, data, error];
-// };
-
 export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
   const trackIdString = trackIds?.join(",");
   const params = new URLSearchParams();
