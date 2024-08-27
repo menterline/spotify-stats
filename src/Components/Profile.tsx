@@ -29,16 +29,13 @@ export function Profile(props: Props) {
     currentTerm?.name,
     token
   );
-  const [isLoadingTracksAnalysis, tracksAnalysis, tracksAnalysisError] =
+  const [isLoadingTracksAnalysis, analysisData, tracksAnalysisError] =
     useTracksAnalysis(
       topItems?.tracks?.map((track: Track) => track.id),
       token
     );
-  const analysisData = useMemo(
-    () => getAnalysisData(tracksAnalysis),
-    [tracksAnalysis]
-  );
 
+  console.log("data = ", analysisData);
   const isLoading =
     isLoadingProfile || isLoadingTopItems || isLoadingTracksAnalysis;
 
@@ -65,21 +62,23 @@ export function Profile(props: Props) {
       <aside className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgDanceability}
+            value={analysisData?.find((x) => x.key === "DANCEABILITY")?.value}
             label="Danceability"
             tooltip="Describes how suitable a track is for dancing.  Values range for 0 being not danceable at all to 100 being most danceable"
           />
         </div>
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgEnergy}
+            value={analysisData?.find((x) => x.key === "ENERGY")?.value}
             label="Energy"
             tooltip="Describes a perceptual measure of intensity and activity.  For example, death metal has high energy, while a Bach prelude scores low on the scale."
           />
         </div>
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgInstrumentalness}
+            value={
+              analysisData?.find((x) => x.key === "INSTRUMENTALNESS")?.value
+            }
             label="Instrumentalness"
             tooltip="Confidence value between 0 and 100 that the track is fully instrumental.  Anything above 50 is meant to represent an instrumental track, but confidence is higher as it approaches 100."
           />
@@ -107,21 +106,21 @@ export function Profile(props: Props) {
       <aside className="self-center lg:flex flex-col gap-16 hidden">
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgLiveness}
+            value={analysisData?.find((x) => x.key === "LIVENESS")?.value}
             label="Liveness"
             tooltip="Confidence that track is live - higher liveness means a high likelihood that this is a live track."
           />
         </div>
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgLoudness}
+            value={analysisData?.find((x) => x.key === "LOUDNESS")?.value}
             label="Loudness"
             tooltip="Average loudness of the track in dB."
           />
         </div>
         <div className="text-spotifyGreen">
           <Knob
-            value={analysisData?.avgSpeechiness}
+            value={analysisData?.find((x) => x.key === "SPEECHINESS")?.value}
             label="Speechiness"
             tooltip="Confidence in the track have spoken word.  In an exclusive spoken word track (like a podcast), the value is closer to 1, while going down to zero is an instrumental track."
           />

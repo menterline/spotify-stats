@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FetchProfile, Login } from "../Components/Login/utils";
 import { UserProfile } from "../types/UserProfile";
 import { TopItemsResponse } from "../types/TopItemsResponse";
+import { TrackAnalysisNode } from "../types/TracksAnalysisResponse";
 
 export const useSpotifyLogin = (code: string): string | undefined => {
   const { data } = useQuery({
@@ -47,14 +48,17 @@ export const useGetTopItems = (
   return [isLoading, data, error];
 };
 
-export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
+export const useTracksAnalysis = (
+  trackIds?: string[],
+  token?: string
+): [boolean, Array<TrackAnalysisNode>, unknown] => {
   const trackIdString = trackIds?.join(",");
   const params = new URLSearchParams();
   params.append("ids", trackIdString ?? "");
   const { isLoading, data, error } = useQuery({
-    queryKey: ["tracks-analysis"],
+    queryKey: [`tracks-analysis=${trackIds}`],
     queryFn: () => {
-      const url = `https://api.spotify.com/v1/audio-features?${params}`;
+      const url = `http://localhost:8080/api/profile/tracksAnalysis?${params}`;
       return fetch(url, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -63,5 +67,5 @@ export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
     enabled: !!token && (trackIds?.length ?? 0) > 0,
     staleTime: Infinity,
   });
-  return [isLoading, data?.audio_features, error];
+  return [isLoading, data, error];
 };
