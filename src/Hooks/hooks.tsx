@@ -56,7 +56,7 @@ export const useTracksAnalysis = (
   const params = new URLSearchParams();
   params.append("ids", trackIdString ?? "");
   const { isLoading, data, error } = useQuery({
-    queryKey: [`tracks-analysis=${trackIds}`],
+    queryKey: [`tracks-analysis-${trackIds}`],
     queryFn: () => {
       const url = `http://localhost:8080/api/profile/tracksAnalysis?${params}`;
       return fetch(url, {

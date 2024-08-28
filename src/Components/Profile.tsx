@@ -35,7 +35,6 @@ export function Profile(props: Props) {
       token
     );
 
-  console.log("data = ", analysisData);
   const isLoading =
     isLoadingProfile || isLoadingTopItems || isLoadingTracksAnalysis;
 
