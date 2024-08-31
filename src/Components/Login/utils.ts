@@ -81,7 +81,6 @@ export async function getAccessToken(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// TODO use my profile API
 export async function fetchProfile(token: string): Promise<UserProfile> {
   const result = await fetch(`${apiUrl}/api/profile/`, {
     method: "GET",

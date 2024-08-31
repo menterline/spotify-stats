@@ -4,6 +4,7 @@ import { TopItems } from "../TopItems";
 import * as hooks from "../../Hooks/hooks";
 import { UserProfile } from "../../types/UserProfile";
 import { Profile } from "../Profile";
+import { TrackAnalysisNode } from "../../types/TracksAnalysisResponse";
 
 describe("Profile Tests", () => {
   test("renders correctly", () => {
@@ -95,14 +96,41 @@ describe("Profile Tests", () => {
       term: "test",
       genres: [],
     };
-    const mockTracksAnalysis = [
+    const mockTracksAnalysis: Array<TrackAnalysisNode> = [
       {
-        danceability: 0.74,
-        energy: 0.19,
-        instrumentalness: 0.01,
-        liveness: 100,
-        loudness: 0.01,
-        speechiness: 0.01,
+        value: 74,
+        key: "DANCEABILITY",
+        description:
+          "Danceability describes how suitable a track is for dancing.",
+      },
+      {
+        value: 19,
+        key: "ENERGY",
+        description:
+          "Energy represents a perceptual measure of intensity and activity.",
+      },
+      {
+        value: 1,
+        key: "INSTRUMENTALNESS",
+        description:
+          "Instrumentalness measures the presence of vocals in a track.",
+      },
+      {
+        value: 100,
+        key: "LIVENESS",
+        description:
+          "Liveness detects the presence of an audience in the recording.",
+      },
+      {
+        value: 1,
+        key: "LOUDNESS",
+        description: "Loudness refers to the overall volume level of a track.",
+      },
+      {
+        value: 1,
+        key: "SPEECHINESS",
+        description:
+          "Speechiness detects the presence of spoken words in a track.",
       },
     ];
 

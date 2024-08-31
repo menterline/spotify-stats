@@ -9,6 +9,7 @@ import {
 import { getAnalysisData } from "./utils";
 import { Track } from "../types/SpotifyEntities";
 import { TermSelector } from "./TermSelector";
+import { Knobs } from "./Knobs";
 
 type TermLength = "short_term" | "medium_term" | "long_term";
 export type Term = { name: TermLength; label: string };
@@ -56,32 +57,17 @@ export function Profile(props: Props) {
       <h2 className="text-xl text-spotifyText">Error loading track analysis</h2>
     );
   }
+
+  const leftSideNodes = analysisData.filter((data) =>
+    ["DANCEABILITY", "ENERGY", "INSTRUMENTALNESS"].includes(data.key)
+  );
+  const rightSideNodes = analysisData.filter((data) =>
+    ["LIVENESS", "LOUDNESS", "SPEECHINESS"].includes(data.key)
+  );
   return (
     <div className="flex flex-row lg:gap-32">
       <aside className="self-center lg:flex flex-col gap-16 hidden">
-        <div className="text-spotifyGreen">
-          <Knob
-            value={analysisData?.find((x) => x.key === "DANCEABILITY")?.value}
-            label="Danceability"
-            tooltip="Describes how suitable a track is for dancing.  Values range for 0 being not danceable at all to 100 being most danceable"
-          />
-        </div>
-        <div className="text-spotifyGreen">
-          <Knob
-            value={analysisData?.find((x) => x.key === "ENERGY")?.value}
-            label="Energy"
-            tooltip="Describes a perceptual measure of intensity and activity.  For example, death metal has high energy, while a Bach prelude scores low on the scale."
-          />
-        </div>
-        <div className="text-spotifyGreen">
-          <Knob
-            value={
-              analysisData?.find((x) => x.key === "INSTRUMENTALNESS")?.value
-            }
-            label="Instrumentalness"
-            tooltip="Confidence value between 0 and 100 that the track is fully instrumental.  Anything above 50 is meant to represent an instrumental track, but confidence is higher as it approaches 100."
-          />
-        </div>
+        <Knobs nodes={leftSideNodes} />
       </aside>
       <main className="text-spotifyGreen flex flex-col gap-8">
         <section>
@@ -103,27 +89,7 @@ export function Profile(props: Props) {
         </section>
       </main>
       <aside className="self-center lg:flex flex-col gap-16 hidden">
-        <div className="text-spotifyGreen">
-          <Knob
-            value={analysisData?.find((x) => x.key === "LIVENESS")?.value}
-            label="Liveness"
-            tooltip="Confidence that track is live - higher liveness means a high likelihood that this is a live track."
-          />
-        </div>
-        <div className="text-spotifyGreen">
-          <Knob
-            value={analysisData?.find((x) => x.key === "LOUDNESS")?.value}
-            label="Loudness"
-            tooltip="Average loudness of the track in dB."
-          />
-        </div>
-        <div className="text-spotifyGreen">
-          <Knob
-            value={analysisData?.find((x) => x.key === "SPEECHINESS")?.value}
-            label="Speechiness"
-            tooltip="Confidence in the track have spoken word.  In an exclusive spoken word track (like a podcast), the value is closer to 1, while going down to zero is an instrumental track."
-          />
-        </div>
+        <Knobs nodes={rightSideNodes} />
       </aside>
     </div>
   );
