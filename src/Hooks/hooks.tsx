@@ -67,5 +67,5 @@ export const useTracksAnalysis = (
     enabled: !!token && (trackIds?.length ?? 0) > 0,
     staleTime: Infinity,
   });
-  return [isLoading, data, error];
+  return [isLoading, data ?? [], error];
 };
