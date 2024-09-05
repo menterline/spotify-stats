@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { FetchProfile, Login } from "../Components/Login/utils";
 import { UserProfile } from "../types/UserProfile";
-
+import { TopItemsResponse } from "../types/TopItemsResponse";
+import { TrackAnalysisNode } from "../types/TracksAnalysisResponse";
+import { apiUrl } from "../apiUrl";
 export const useSpotifyLogin = (code: string): string | undefined => {
   const { data } = useQuery({
     queryKey: ["login"],
@@ -24,25 +26,21 @@ export const useFetchProfile = (
   return [isLoading, data, error];
 };
 
-const useGetTopItems = (
-  type: "tracks" | "artists",
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
+export const useGetTopItems = (
+  timeRange?: "short_term" | "medium_term" | "long_term",
   token?: string
-) => {
+): [boolean, TopItemsResponse, unknown] => {
   const { isLoading, data, error } = useQuery({
-    queryKey: [`${type}-${timeRange}`],
-    queryFn: () => {
+    queryKey: [`topItems-${timeRange}`],
+    queryFn: async () => {
       const params = new URLSearchParams();
-      params.append("type", type);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - this function is only called if timeRange is defined
-      params.append("time_range", timeRange);
-      params.append("limit", "20");
-      const url = `https://api.spotify.com/v1/me/top/${type}?${params}`;
-      return fetch(url, {
+      params.append("term", timeRange ?? "");
+      const url = `${apiUrl}/api/profile/topItems?${params}`;
+      const result = await fetch(url, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => res.json());
+      });
+      return result.json();
     },
     enabled: !!token && !!timeRange,
     staleTime: Infinity,
@@ -50,28 +48,17 @@ const useGetTopItems = (
   return [isLoading, data, error];
 };
 
-export const useTopTracks = (
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
+export const useTracksAnalysis = (
+  trackIds?: string[],
   token?: string
-) => {
-  return useGetTopItems("tracks", timeRange, token);
-};
-
-export const useTopArtists = (
-  timeRange: "short_term" | "medium_term" | "long_term" | undefined,
-  token?: string
-) => {
-  return useGetTopItems("artists", timeRange, token);
-};
-
-export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
+): [boolean, Array<TrackAnalysisNode>, unknown] => {
   const trackIdString = trackIds?.join(",");
   const params = new URLSearchParams();
   params.append("ids", trackIdString ?? "");
   const { isLoading, data, error } = useQuery({
-    queryKey: ["tracks-analysis"],
+    queryKey: [`tracks-analysis-${trackIds}`],
     queryFn: () => {
-      const url = `https://api.spotify.com/v1/audio-features?${params}`;
+      const url = `${apiUrl}/api/profile/tracksAnalysis?${params}`;
       return fetch(url, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -80,5 +67,5 @@ export const useTracksAnalysis = (trackIds?: string[], token?: string) => {
     enabled: !!token && (trackIds?.length ?? 0) > 0,
     staleTime: Infinity,
   });
-  return [isLoading, data?.audio_features, error];
+  return [isLoading, data ?? [], error];
 };

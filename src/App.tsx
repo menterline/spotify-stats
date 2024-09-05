@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./Components/LandingPage";
-import { Profile } from "./Components/Profile";
+import LandingPage from "./pages/LandingPage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
