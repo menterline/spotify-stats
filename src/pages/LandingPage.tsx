@@ -1,7 +1,7 @@
-import { Button } from "@headlessui/react";
-import { Login } from "./Login/utils";
+import { Login } from "../Components/Login/utils";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { SpotifyButton } from "../Components/SpotifyButton";
 
 export default function LandingPage() {
   const params = new URLSearchParams(window.location.search);
@@ -24,12 +24,10 @@ export default function LandingPage() {
         </h3>
       </section>
       <div className="flex flex-col items-center gap-4">
-        <Button
-          className="rounded-full self-center bg-spotifyGreen text-spotifyBlack data-[hover]:bg-spotifyBlack data-[hover]:text-spotifyGreen transition ease-in-out duration-500 px-4 py-2"
+        <SpotifyButton
+          label="Login to Spotify"
           onClick={() => Login(code ?? "")}
-        >
-          Login to Spotify
-        </Button>
+        />
         <p className="text-spotifyText max-w-[512px]">
           Please login to spotify so in order to fetch your listening data.
           Nothing is saved or persisted in any way

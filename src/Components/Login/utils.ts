@@ -1,3 +1,4 @@
+import { apiUrl } from "../../apiUrl";
 import { UserProfile } from "../../types/UserProfile";
 
 const clientId = "438b741ca31040b398a336a28407feff";
@@ -80,8 +81,8 @@ export async function getAccessToken(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function fetchProfile(token: string): Promise<any> {
-  const result = await fetch("https://api.spotify.com/v1/me", {
+export async function fetchProfile(token: string): Promise<UserProfile> {
+  const result = await fetch(`${apiUrl}/api/profile/`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
