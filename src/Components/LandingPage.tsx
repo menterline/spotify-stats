@@ -8,7 +8,7 @@ export default function LandingPage() {
   const code = params.get("code");
   const navigate = useNavigate();
   useEffect(() => {
-    if (code) navigate(`/spotify-stats/profile?code=${code}`);
+    if (code) navigate(`/profile?code=${code}`);
   }, [code, navigate]);
 
   return (
