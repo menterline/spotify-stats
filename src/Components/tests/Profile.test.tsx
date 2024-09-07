@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import { TopItems } from "../TopItems";
 import * as hooks from "../../Hooks/hooks";
 import { UserProfile } from "../../types/UserProfile";
 import { Profile } from "../Profile";

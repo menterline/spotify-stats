@@ -1,15 +1,13 @@
-import { useMemo, useState } from "react";
-import { Knob } from "./Knob";
 import { TopItems } from "./TopItems";
 import {
   useFetchProfile,
   useGetTopItems,
   useTracksAnalysis,
 } from "../Hooks/hooks";
-import { getAnalysisData } from "./utils";
 import { Track } from "../types/SpotifyEntities";
 import { TermSelector } from "./TermSelector";
 import { Knobs } from "./Knobs";
+import { useState } from "react";
 
 type TermLength = "short_term" | "medium_term" | "long_term";
 export type Term = { name: TermLength; label: string };

@@ -15,7 +15,7 @@ export const Knob = (props: Props) => {
           <Tooltip.Provider>
             <Tooltip.Root>
               <Tooltip.Trigger asChild>
-                <div className="text-xl">{props.label}</div>
+                <div className="text-xl">{label}</div>
               </Tooltip.Trigger>
               <Tooltip.Portal>
                 <Tooltip.Content

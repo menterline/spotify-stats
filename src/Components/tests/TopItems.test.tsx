@@ -4,23 +4,13 @@ import { TopItems } from "../TopItems";
 import { testArtists, testTracks } from "./TopItems-testData";
 describe("TopItems", () => {
   test("renders empty lists correctly", () => {
-    const { getByText } = render(
-      <TopItems
-        tracks={[]}
-        artists={[]}
-        currentTerm={{ name: "short_term", label: "test" }}
-      />
-    );
+    const { getByText } = render(<TopItems tracks={[]} artists={[]} />);
     expect(getByText("Tracks")).toBeTruthy();
     expect(getByText("Artists")).toBeTruthy();
   });
   test("renders tracks and artists", () => {
     const { getByText } = render(
-      <TopItems
-        tracks={testTracks}
-        artists={testArtists}
-        currentTerm={{ name: "short_term", label: "test" }}
-      />
+      <TopItems tracks={testTracks} artists={testArtists} />
     );
     expect(getByText("Tracks")).toBeTruthy();
     expect(getByText("Artists")).toBeTruthy();
