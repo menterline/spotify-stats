@@ -38,7 +38,12 @@ export function Profile(props: Props) {
     isLoadingProfile || isLoadingTopItems || isLoadingTracksAnalysis;
 
   if (isLoading) {
-    return <div className="text-xl text-spotifyText">Loading...</div>;
+    return (
+      <div className="flex flex-col gap-16">
+        <div className="text-xl w-48 h-48 border-[16px] border-solid  border-spotifyText border-t-spotifyGreen rounded-[50%] animate-spin text-spotifyText"></div>
+        <div className="text-spotifyText text-2xl">Loading...</div>
+      </div>
+    );
   }
   if (loadingProfileError) {
     return <h2 className="text-xl text-spotifyText">Error loading Profile</h2>;
