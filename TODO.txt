@@ -1,0 +1,7 @@
+Things to do
+
+add token to local storage, so refresh works
+add profile pic
+
+add fancier loading states
+transitions
