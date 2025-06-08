@@ -1,4 +1,4 @@
-import { apiUrl } from "../../apiUrl";
+import {getApiUrl} from "../../apiUrl";
 import { UserProfile } from "../../types/UserProfile";
 
 const clientId = "438b741ca31040b398a336a28407feff";
@@ -82,7 +82,7 @@ export async function getAccessToken(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function fetchProfile(token: string): Promise<UserProfile> {
-  const result = await fetch(`${apiUrl}/api/profile/`, {
+  const result = await fetch(`${getApiUrl()}/api/profile/`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });

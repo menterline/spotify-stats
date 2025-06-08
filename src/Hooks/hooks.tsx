@@ -3,7 +3,7 @@ import { FetchProfile, Login } from "../Components/Login/utils";
 import { UserProfile } from "../types/UserProfile";
 import { TopItemsResponse } from "../types/TopItemsResponse";
 import { TrackAnalysisNode } from "../types/TracksAnalysisResponse";
-import { apiUrl } from "../apiUrl";
+import { getApiUrl} from "../apiUrl";
 export const useSpotifyLogin = (code: string): string | undefined => {
   const { data } = useQuery({
     queryKey: ["login"],
@@ -35,7 +35,7 @@ export const useGetTopItems = (
     queryFn: async () => {
       const params = new URLSearchParams();
       params.append("term", timeRange ?? "");
-      const url = `${apiUrl}/api/profile/topItems?${params}`;
+      const url = `${getApiUrl()}/api/profile/topItems?${params}`;
       const result = await fetch(url, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -58,7 +58,7 @@ export const useTracksAnalysis = (
   const { isLoading, data, error } = useQuery({
     queryKey: [`tracks-analysis-${trackIds}`],
     queryFn: () => {
-      const url = `${apiUrl}/api/profile/tracksAnalysis?${params}`;
+      const url = `${getApiUrl()}/api/profile/tracksAnalysis?${params}`;
       return fetch(url, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
