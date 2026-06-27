@@ -15,7 +15,8 @@ export const testTracks = [
       release_date: "2020-01-01",
       total_tracks: 10,
       href: "https://api.spotify.com/v1/albums/1",
-      uri: "https://open.spotify.com/album/1",
+      external_urls: { spotify: "https://open.spotify.com/album/web-1" },
+      uri: "spotify:album:1",
     },
     artists: [
       {
@@ -25,7 +26,8 @@ export const testTracks = [
         href: "https://api.spotify.com/v1/artists/1",
         popularity: 100,
         type: "artist",
-        uri: "https://open.spotify.com/artist/1",
+        external_urls: { spotify: "https://open.spotify.com/artist/web-1" },
+        uri: "spotify:artist:1",
         images: [
           {
             height: 100,
@@ -43,7 +45,8 @@ export const testTracks = [
       "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/3c/0a/7e/3c0a7e4d-0f13-2f8c-13b7-6c6f8b6c4d66/mzaf_12524435165144433321.plus.aac.p.m4a",
     track_number: 1,
     type: "track",
-    uri: "https://open.spotify.com/track/1",
+    external_urls: { spotify: "https://open.spotify.com/track/web-1" },
+    uri: "spotify:track:1",
   },
   {
     id: "2",
@@ -61,7 +64,8 @@ export const testTracks = [
       release_date: "2020-01-01",
       total_tracks: 10,
       href: "https://api.spotify.com/v1/albums/2",
-      uri: "https://open.spotify.com/album/2",
+      external_urls: { spotify: "https://open.spotify.com/album/web-2" },
+      uri: "spotify:album:2",
     },
     artists: [
       {
@@ -71,7 +75,8 @@ export const testTracks = [
         href: "https://api.spotify.com/v1/artists/2",
         popularity: 100,
         type: "artist",
-        uri: "https://open.spotify.com/artist/2",
+        external_urls: { spotify: "https://open.spotify.com/artist/web-2" },
+        uri: "spotify:artist:2",
         images: [
           {
             height: 100,
@@ -89,7 +94,8 @@ export const testTracks = [
       "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/3c/0a/7e/3c0a7e4d-0f13-2f8c-13b7-6c6f8b6c4d66/mzaf_12524435165144433321.plus.aac.p.m4a",
     track_number: 2,
     type: "track",
-    uri: "https://open.spotify.com/track/2",
+    external_urls: { spotify: "https://open.spotify.com/track/web-2" },
+    uri: "spotify:track:2",
   },
 ];
 
@@ -108,7 +114,8 @@ export const testArtists = [
     href: "https://api.spotify.com/v1/artists/1",
     popularity: 100,
     type: "artist",
-    uri: "https://open.spotify.com/artist/1",
+    external_urls: { spotify: "https://open.spotify.com/artist/web-1" },
+    uri: "spotify:artist:1",
   },
   {
     id: "2",
@@ -124,6 +131,7 @@ export const testArtists = [
     href: "https://api.spotify.com/v1/artists/2",
     popularity: 100,
     type: "artist",
-    uri: "https://open.spotify.com/artist/2",
+    external_urls: { spotify: "https://open.spotify.com/artist/web-2" },
+    uri: "spotify:artist:2",
   },
 ];

@@ -3,6 +3,7 @@ export type Artist = {
   name: string;
   genres: string[];
   href: string;
+  external_urls: ExternalURL;
   images: Image[];
   popularity: number;
   type: string;
@@ -17,6 +18,7 @@ export type Track = {
   duration_ms: number;
   explicit: boolean;
   href: string;
+  external_urls: ExternalURL;
   popularity: number;
   preview_url?: string;
   track_number: number;
@@ -31,6 +33,7 @@ export type Album = {
   release_date: string;
   total_tracks: number;
   href: string;
+  external_urls: ExternalURL;
   uri: string;
 };
 

@@ -13,7 +13,15 @@ export function TopItems(props: Props) {
           <div className="text-2xl underline">Tracks</div>
           <div className="text-center text-spotifyText">
             {tracks.map((track: Track, i: number) => (
-              <p key={i}>{track.name}</p>
+              <p key={i}>
+                <a
+                  href={track.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {track.name}
+                </a>
+              </p>
             ))}
           </div>
         </section>
@@ -21,7 +29,15 @@ export function TopItems(props: Props) {
           <div className="text-2xl underline">Artists</div>
           <div className="text-center text-spotifyText">
             {artists?.map((artist: Artist, i: number) => (
-              <p key={i}>{artist.name}</p>
+              <p key={i}>
+                <a
+                  href={artist.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {artist.name}
+                </a>
+              </p>
             ))}
           </div>
         </section>

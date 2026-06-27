@@ -9,14 +9,26 @@ describe("TopItems", () => {
     expect(getByText("Artists")).toBeTruthy();
   });
   test("renders tracks and artists", () => {
-    const { getByText } = render(
+    const { getByRole, getByText } = render(
       <TopItems tracks={testTracks} artists={testArtists} />
     );
     expect(getByText("Tracks")).toBeTruthy();
     expect(getByText("Artists")).toBeTruthy();
-    expect(getByText("Track 1")).toBeTruthy();
-    expect(getByText("Artist 1")).toBeTruthy();
-    expect(getByText("Track 2")).toBeTruthy();
-    expect(getByText("Artist 2")).toBeTruthy();
+    expect(getByRole("link", { name: "Track 1" })).toHaveAttribute(
+      "href",
+      "https://open.spotify.com/track/web-1"
+    );
+    expect(getByRole("link", { name: "Artist 1" })).toHaveAttribute(
+      "href",
+      "https://open.spotify.com/artist/web-1"
+    );
+    expect(getByRole("link", { name: "Track 2" })).toHaveAttribute(
+      "href",
+      "https://open.spotify.com/track/web-2"
+    );
+    expect(getByRole("link", { name: "Artist 2" })).toHaveAttribute(
+      "href",
+      "https://open.spotify.com/artist/web-2"
+    );
   });
 });
