@@ -14,20 +14,16 @@ describe("TopItems", () => {
     );
     expect(getByText("Tracks")).toBeTruthy();
     expect(getByText("Artists")).toBeTruthy();
-    expect(getByRole("link", { name: "Track 1" })).toHaveAttribute(
-      "href",
+    expect(getByRole("link", { name: "Track 1" }).getAttribute("href")).toBe(
       "https://open.spotify.com/track/web-1"
     );
-    expect(getByRole("link", { name: "Artist 1" })).toHaveAttribute(
-      "href",
+    expect(getByRole("link", { name: "Artist 1" }).getAttribute("href")).toBe(
       "https://open.spotify.com/artist/web-1"
     );
-    expect(getByRole("link", { name: "Track 2" })).toHaveAttribute(
-      "href",
+    expect(getByRole("link", { name: "Track 2" }).getAttribute("href")).toBe(
       "https://open.spotify.com/track/web-2"
     );
-    expect(getByRole("link", { name: "Artist 2" })).toHaveAttribute(
-      "href",
+    expect(getByRole("link", { name: "Artist 2" }).getAttribute("href")).toBe(
       "https://open.spotify.com/artist/web-2"
     );
   });

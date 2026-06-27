@@ -3,7 +3,6 @@ import { describe, expect, test, vi } from "vitest";
 import * as hooks from "../../Hooks/hooks";
 import { UserProfile } from "../../types/UserProfile";
 import { Profile } from "../Profile";
-import { TrackAnalysisNode } from "../../types/TracksAnalysisResponse";
 
 describe("Profile Tests", () => {
   test("renders correctly", () => {
